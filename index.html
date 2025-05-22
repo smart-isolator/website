@@ -8,42 +8,113 @@
 </head>
 <body class="bg-black text-white font-sans">
 
-  <!-- Hero Section -->
-  <section class="relative h-screen bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/3194327/pexels-photo-3194327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative h-full flex flex-col justify-center items-center text-center">
-      <h1 class="text-4xl md:text-6xl font-bold text-white">Bijenkast monitoring!</h1>
-    </div>
-  </section>
+<!-- Navigation -->
+<section class="py-8 px-6 bg-black text-white">
+<nav class="absolute top-4 left-4">
+  <ul class="flex space-x-6 text-lg font-semibold">
+    <li><a href="index.html" class="text-white hover:text-yellow-400">Home</a></li>
+    <li><a href="product.html" class="text-white hover:text-yellow-400">Product</a></li>
+  </ul>
+</nav>
+</section>
 
-  <!-- Contact Section -->
-  <section class="py-12 px-4 bg-black">
-    <div class="max-w-xl mx-auto">
-      <h2 class="text-3xl font-semibold text-center mb-6">Contact Us</h2>
-      <form class="space-y-4">
-        <div>
-          <label class="block mb-1">Name</label>
-          <input type="text" class="w-full px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded" />
-        </div>
-        <div>
-          <label class="block mb-1">Email</label>
-          <input type="email" class="w-full px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded" />
-        </div>
-        <div>
-          <label class="block mb-1">Message</label>
-          <textarea rows="5" class="w-full px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded"></textarea>
-        </div>
-        <div class="flex items-center">
-          <input type="checkbox" id="newsletter" class="mr-2" />
-          <label for="newsletter">Sign up for our emails for updates, promotions, and more.</label>
-        </div>
-        <button type="submit" class="w-full py-2 bg-white text-black font-semibold rounded hover:bg-gray-200">SEND</button>
-      </form>
-      <p class="text-xs text-center mt-6 opacity-60">
-        This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
-      </p>
+<!-- Hero Section -->
+<section class="relative bg-cover bg-center py-24" style="background-image: url('https://images.pexels.com/photos/3194327/pexels-photo-3194327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+  <div class="relative flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white">SMART ISOLATOR</h1>
+    <p class="text-xl max-w-2xl text-white">Geautomatiseerde bijenkast monitoring voor imkers: inzicht, gemak en innovatie in één systeem.</p>
+  </div>
+</section>
+
+<!-- Introductie -->
+<section class="py-16 px-6 bg-black text-white">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-semibold mb-4">Waarom kastregistratie?</h2>
+    <p class="text-lg mb-6">
+      Het nauwkeurig bijhouden van kastgegevens en observaties is essentieel voor de gezondheid van het volk. Met Smart Isolator combineren we sensoren en een gebruiksvriendelijke app om dit proces eenvoudig en automatisch te maken.
+    </p>
+  </div>
+</section>
+
+<!-- Voordelen -->
+<section class="py-16 px-6 bg-gray-900 text-white">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-center mb-8">Wat bieden wij?</h2>
+    <ul class="list-disc list-inside space-y-2 text-lg">
+      <li>Registratie via app of automatisch met sensoren</li>
+      <li>Publieke profielpagina voor bezoekers en volgers</li>
+      <li>Vergelijk uw data met andere imkers</li>
+      <li>Ondersteuning van AI voor advies, samenvattingen en analyse</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Wat meten we -->
+<section class="py-16 px-6 bg-black text-white">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-center mb-8">Sensoren & Metingen</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
+      <div>
+        <h3 class="text-xl font-bold mb-2">Buiten de kast:</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Temperatuur</li>
+          <li>Luchtvochtigheid</li>
+          <li>Luchtdruk</li>
+          <li>Lichtintensiteit</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-2">Binnen de kast:</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Temperatuur</li>
+          <li>Luchtvochtigheid</li>
+          <li>CO₂-gehalte</li>
+          <li>Audio-analyse</li>
+          <li>Luchtkwaliteit</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- Onderzoek -->
+<section class="py-16 px-6 bg-gray-900 text-white">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-center mb-8">Ons Onderzoek</h2>
+    <ul class="list-disc list-inside space-y-2 text-lg">
+      <li>De gezondheid, gemoedstoestand en dynamiek van het volk</li>
+      <li>Detectie van tuten, kwaken en zwermsignalen</li>
+      <li>Herkenning van koningin-aanwezigheid</li>
+      <li>Het voorspellen van zwermen</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Data publicatie -->
+<section class="py-16 px-6 bg-black text-white">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-semibold mb-4">Transparantie en Data</h2>
+    <p class="text-lg">Onze data is publiek toegankelijk en beschikbaar voor iedereen via:</p>
+    <a href="https://github.com/smart-isolator/data/tree/main/data" class="text-yellow-400 hover:underline block mt-2 text-lg break-all">
+      github.com/smart-isolator/data
+    </a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="py-16 px-6 bg-gray-900 text-white">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-3xl font-semibold mb-4">Meedoen als imker?</h2>
+    <p class="text-lg mb-4">Stuur een mailtje naar:</p>
+    <p class="text-xl font-bold text-yellow-400">smart.hive.isolator@gmail.com</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-6 px-4 bg-black text-center text-sm text-white opacity-60">
+  © 2025 Smart Isolator – Alle rechten voorbehouden.
+</footer>
 
 </body>
 </html>
