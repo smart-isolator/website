@@ -283,50 +283,57 @@
     </div>
   </section>
 
-  <!-- Demo / Contact -->
   <section id="demo" class="py-16 md:py-24">
-    <div class="max-w-3xl mx-auto px-4">
-      <div class="p-6 md:p-8 rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <h2 class="text-2xl md:text-3xl font-semibold">Vraag een demo aan</h2>
-        <p class="mt-2 text-slate-600">Laat je gegevens achter en we nemen contact op.</p>
-        <form class="mt-6 grid gap-4" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-          <div class="grid md:grid-cols-2 gap-4">
-            <div>
-              <label class="text-sm text-slate-700" for="name">Naam</label>
-              <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
-            </div>
-            <div>
-              <label class="text-sm text-slate-700" for="org">Organisatie</label>
-              <input id="org" name="organization" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
-            </div>
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="p-6 md:p-8 rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <h2 class="text-2xl md:text-3xl font-semibold">Vraag een demo aan</h2>
+      <p class="mt-2 text-slate-600">Laat je gegevens achter en we nemen contact op.</p>
+      <form class="mt-6 grid gap-4" action="https://formspree.io/f/mjkargyr" method="POST">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-slate-700" for="name">Naam</label>
+            <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
           <div>
-            <label class="text-sm text-slate-700" for="email">E‑mail</label>
-            <input type="email" id="email" name="email" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <label class="text-sm text-slate-700" for="org">Organisatie</label>
+            <input id="org" name="organization" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
-          <div>
-            <label class="text-sm text-slate-700" for="interest">Waar ben je in geïnteresseerd?</label>
-            <select id="interest" name="interest" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <option>Imkers</option>
-              <option>Onderzoek & onderwijs</option>
-              <option>Overheden</option>
-              <option>Industrie & terreinbeheer</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-sm text-slate-700" for="msg">Bericht</label>
-            <textarea id="msg" name="message" rows="4" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Vertel kort je use‑case…"></textarea>
-          </div>
-          <div class="flex items-center justify-between gap-4">
-            <label class="flex items-center gap-2 text-sm text-slate-600">
-              <input type="checkbox" name="consent" required class="rounded border-slate-300" /> Ik ga akkoord met de <a href="#" class="underline">privacyverklaring</a>.
-            </label>
-            <button class="inline-flex items-center rounded-xl px-5 py-3 bg-amber-500 text-white font-medium shadow hover:bg-amber-600 transition" type="submit">Verzenden</button>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <div>
+          <label class="text-sm text-slate-700" for="email">E-mail</label>
+          <input type="email" id="email" name="email" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="text-sm text-slate-700" for="interest">Waar ben je in geïnteresseerd?</label>
+          <select id="interest" name="interest" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <option>Imkers</option>
+            <option>Onderzoek & onderwijs</option>
+            <option>Overheden</option>
+            <option>Industrie & terreinbeheer</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-sm text-slate-700" for="msg">Bericht</label>
+          <textarea id="msg" name="message" rows="4" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Vertel kort je use-case…"></textarea>
+        </div>
+
+        <!-- Honeypot spamfilter veld (verborgen voor echte gebruikers) -->
+        <input type="text" name="_gotcha" style="display: none !important;">
+
+        <div class="flex items-center justify-between gap-4">
+          <label class="flex items-center gap-2 text-sm text-slate-600">
+            <input type="checkbox" name="consent" required class="rounded border-slate-300" /> Ik ga akkoord met de <a href="#" class="underline">privacyverklaring</a>.
+          </label>
+          <button class="inline-flex items-center rounded-xl px-5 py-3 bg-amber-500 text-white font-medium shadow hover:bg-amber-600 transition" type="submit">Verzenden</button>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <footer class="py-10 border-t border-slate-200"> 
     <div class="max-w-6xl mx-auto px-4">
