@@ -1,58 +1,371 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Isolator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Isolator – Datagedreven bijenkast‑inzichten</title>
+  <meta name="description" content="Smart Isolator helpt imkers en organisaties met datagedreven inzichten uit bijenkasten: sensordata, analyses en praktisch advies." />
+  <meta property="og:title" content="Smart Isolator – Datagedreven bijenkast‑inzichten" />
+  <meta property="og:description" content="Realtime sensordata → analyses → advies. Vraag een demo en ontdek hoe je sneller en slimmer beslissingen neemt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://smart-isolator.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🐝</text></svg>">
+  <!-- TailwindCSS via CDN (werkt op GitHub Pages zonder build) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Kleine tweaks die je eventueel los van Tailwind wilt hebben */
+    html{scroll-behavior:smooth}
+  </style>
 </head>
-<body class="bg-black text-white font-sans">
-
-<!-- Navigation -->
-<section class="py-8 px-6 bg-black text-white">
-  <nav class="absolute top-4 left-4">
-    <ul class="flex space-x-6 text-lg font-semibold">
-      <li><a href="index.html" class="text-white hover:text-yellow-400">Home</a></li>
-      <li><a href="overheid.html" class="text-white hover:text-yellow-400">Overheid</a></li>
-      <li><a href="bijenhouder.html" class="text-white hover:text-yellow-400">Bijenhouder</a></li>
-      <li><a href="bezoekers.html" class="text-white hover:text-yellow-400">Bezoekers</a></li>
-      <li><a href="industrie.html" class="text-white hover:text-yellow-400">Industrie</a></li>
-      <li><a href="contact.html" class="text-white hover:text-yellow-400">Contact</a></li>
-    </ul>
-  </nav>
-</section>
-
-<!-- Hero Section -->
-<section class="relative bg-cover bg-center py-24" style="background-image: url('https://images.pexels.com/photos/3194327/pexels-photo-3194327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
-  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-  <div class="relative flex flex-col justify-center items-center text-center px-6">
-    <h1 class="text-4xl md:text-5xl font-bold mb-3 text-white">SMART ISOLATOR</h1>
-    <p class="text-lg md:text-xl max-w-2xl text-white mb-6">Geautomatiseerde bijenkastmonitoring die datawetenschap en robuuste hardware combineert om betrouwbare inzichten te leveren.</p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <a href="bijenhouder.html" class="px-4 py-3 border border-white/20 text-white rounded-md hover:bg-white/5">Voor imkers</a>
-      <a href="overheid.html" class="px-4 py-3 border border-white/20 text-white rounded-md hover:bg-white/5">Voor beleid & onderzoek</a>
-      <a href="bezoekers.html" class="px-4 py-3 border border-white/20 text-white rounded-md hover:bg-white/5">Voor bezoekers</a>
-      <a href="industrie.html" class="px-4 py-3 border border-white/20 text-white rounded-md hover:bg-white/5">Industrie & Product</a>
+<body class="antialiased text-slate-800">
+  <!-- Topbar / Nav -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-2 font-semibold">
+          <span class="text-2xl">🐝</span>
+          <span>Smart Isolator</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="#oplossingen" class="hover:text-slate-900 text-slate-600">Oplossingen</a>
+          <a href="#hoe-werkt-het" class="hover:text-slate-900 text-slate-600">Hoe het werkt</a>
+          <a href="#waarom" class="hover:text-slate-900 text-slate-600">Waarom wij</a>
+          <a href="#impact" class="hover:text-slate-900 text-slate-600">Impact</a>
+          <a href="#voor-wie" class="hover:text-slate-900 text-slate-600">Voor wie</a>
+          <a href="#updates" class="hover:text-slate-900 text-slate-600">Updates</a>
+        </nav>
+        <div class="hidden md:block">
+          <a href="#demo" class="inline-flex items-center rounded-xl px-4 py-2 bg-amber-500 text-white font-medium shadow hover:bg-amber-600 transition">Vraag een demo</a>
+        </div>
+        <button id="navBtn" class="md:hidden p-2" aria-label="Open navigatie">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M3.75 6.75h16.5v1.5H3.75zM3.75 11.25h16.5v1.5H3.75zM3.75 15.75h16.5v1.5H3.75z"/></svg>
+        </button>
+      </div>
+      <nav id="mobileNav" class="md:hidden hidden pb-4">
+        <div class="flex flex-col gap-2">
+          <a href="#oplossingen" class="px-2 py-2 rounded hover:bg-slate-50">Oplossingen</a>
+          <a href="#hoe-werkt-het" class="px-2 py-2 rounded hover:bg-slate-50">Hoe het werkt</a>
+          <a href="#waarom" class="px-2 py-2 rounded hover:bg-slate-50">Waarom wij</a>
+          <a href="#impact" class="px-2 py-2 rounded hover:bg-slate-50">Impact</a>
+          <a href="#voor-wie" class="px-2 py-2 rounded hover:bg-slate-50">Voor wie</a>
+          <a href="#updates" class="px-2 py-2 rounded hover:bg-slate-50">Updates</a>
+          <a href="#demo" class="px-2 py-2 rounded bg-amber-500 text-white">Vraag een demo</a>
+        </div>
+      </nav>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- Founder & Mission -->
-<section class="py-12 px-6 bg-black text-white">
-  <div class="max-w-3xl mx-auto text-center">
-  <h2 class="text-2xl font-semibold mb-4">Onze missie</h2>
-  <p class="text-lg mb-4">Een samenwerking tussen datawetenschap en hardware-engineering. We ontwikkelen betaalbare sensoren en geautomatiseerde analyses zodat imkers, onderzoekers en beleidsmakers op betrouwbare data kunnen vertrouwen.</p>
-  <p class="text-lg mb-4">We publiceren onze datasets openlijk en focussen op reproduceerbare, gevalideerde inzichten die beleidsvorming en praktijk kunnen ondersteunen.</p>
-  <p class="text-lg">Onze aanpak is praktisch en doelgericht: geen vrijblijvende idealen maar betrouwbare data en bruikbare analyses.</p>
-  </div>
-</section>
+  <!-- Hero -->
+  <section id="home" class="relative">
+    <div class="max-w-6xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-semibold leading-tight">Het platform dat imkers, burgers en onderzoekers samenbrengt</h1>
+        <p class="mt-5 text-lg text-slate-600">Smart Isolator maakt bijengezondheid zichtbaar met sensordata en heldere inzichten. Open waar het kan, privacy‑bewust waar het moet. Samen leren we sneller.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#demo" class="inline-flex items-center rounded-xl px-5 py-3 bg-amber-500 text-white font-medium shadow hover:bg-amber-600 transition">Vraag een demo</a>
+          <a href="#waarom" class="inline-flex items-center rounded-xl px-5 py-3 border border-slate-300 hover:bg-slate-50 transition">Waarom wij</a>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-4 text-sm text-slate-600">
+          <div class="p-3 rounded-xl border border-slate-200"><span class="block font-semibold text-slate-800">Samen</span> citizen science</div>
+          <div class="p-3 rounded-xl border border-slate-200"><span class="block font-semibold text-slate-800">Open</span> data & methode</div>
+          <div class="p-3 rounded-xl border border-slate-200"><span class="block font-semibold text-slate-800">Impact</span> op beleid & praktijk</div>
+          <div class="p-3 rounded-xl border border-slate-200"><span class="block font-semibold text-slate-800">Schaalbaar</span> en kostenefficiënt</div>
+          <div class="p-3 rounded-xl border border-slate-200"><span class="block font-semibold text-slate-800">Open</span> data‑export & API (in opbouw)</div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] w-full rounded-2xl border border-slate-200 shadow-sm bg-gradient-to-br from-amber-50 to-white grid place-items-center">
+          <div class="text-center px-6">
+            <div class="aspect-[4/3] w-full rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <img src="images/device.png" alt="Interactie met bezoekers" class="w-full h-full object-cover">
+          </div>
+            <div class="aspect-[4/3] w-full rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <img src="images/vereniging.jpeg" alt="Interactie met bezoekers" class="w-full h-full object-cover">
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Audience menu removed: primary entry via hero buttons -->
+  <!-- Oplossingen -->
+  <section id="oplossingen" class="py-16 md:py-24 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="md:flex items-end justify-between">
+        <h2 class="text-2xl md:text-3xl font-semibold">Oplossingen</h2>
+        <p class="mt-3 md:mt-0 text-slate-600">Van meting naar actie, voor elke doelgroep.</p>
+      </div>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="voor-wie">
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Imkers</h3>
+          <p class="mt-2 text-sm text-slate-600">Heldere signalen en seizoensadvies. Minder giswerk, meer rust.</p>
+        </article>
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Onderzoek</h3>
+          <p class="mt-2 text-sm text-slate-600">Transparante data & methode. Reproduceerbaar en exporteerbaar.</p>
+        </article>
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Overheden</h3>
+          <p class="mt-2 text-sm text-slate-600">Monitoring & rapportage rondom bestuivers en biodiversiteit.</p>
+        </article>
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Gemeenschap</h3>
+          <p class="mt-2 text-sm text-slate-600">Informeren en betrekken van bewoners bij lokale natuurprojecten.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<!-- Footer -->
-<footer class="py-6 px-4 bg-black text-center text-sm text-white opacity-60">
-  © 2025 Smart Isolator – Alle rechten voorbehouden.
-</footer>
+  <!-- Hoe het werkt -->
+  <section id="hoe-werkt-het" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-semibold">Hoe het werkt</h2>
+      <div class="mt-8 grid md:grid-cols-4 gap-6">
+        <div class="p-5 rounded-2xl border border-slate-200">
+          <div class="text-2xl">📡</div>
+          <h3 class="mt-2 font-semibold">1. Sensoren</h3>
+          <p class="mt-1 text-sm text-slate-600">Audio, temperatuur, CO₂/licht en externe bronnen.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200">
+          <div class="text-2xl">☁️</div>
+          <h3 class="mt-2 font-semibold">2. Data‑platform</h3>
+          <p class="mt-1 text-sm text-slate-600">Veilige opslag, validatie en kwaliteitschecks.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200">
+          <div class="text-2xl">🧠</div>
+          <h3 class="mt-2 font-semibold">3. Modellen</h3>
+          <p class="mt-1 text-sm text-slate-600">Detectie van patronen, alerts en voorspellingen.</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200">
+          <div class="text-2xl">✅</div>
+          <h3 class="mt-2 font-semibold">4. Advies</h3>
+          <p class="mt-1 text-sm text-slate-600">Concreet handelingsadvies in begrijpelijke taal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Waarom wij (waarden → voordelen) -->
+  <section id="waarom" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-semibold">Waarom Smart Isolator</h2>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-semibold">Open & betrouwbaar</h3>
+          <p class="mt-2 text-sm text-slate-600">We delen methodes en inzichten. Transparantie bouwt vertrouwen—juist bij beleid en onderzoek.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-semibold">Samen sneller leren</h3>
+          <p class="mt-2 text-sm text-slate-600">Imkers, burgers en onderzoekers op één platform. Diversiteit aan perspectieven = betere beslissingen.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-semibold">Focus op impact</h3>
+          <p class="mt-2 text-sm text-slate-600">Waarde en inhoud gaan voor commercie. We meten wat ertoe doet voor natuurherstel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact (kort en meetbaar) -->
+  <section id="impact" class="py-16 md:py-24 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="md:flex items-end justify-between">
+        <h2 class="text-2xl md:text-3xl font-semibold">Impact</h2>
+        <p class="mt-3 md:mt-0 text-slate-600">Vooruitblik</p>
+      </div>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">10+</div>
+          <p class="mt-1 text-sm text-slate-600">Meetwaarden in en rondom het bijenvolk</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">1+</div>
+          <p class="mt-1 text-sm text-slate-600">Bijenvolk informatie delen</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">100+</div>
+          <p class="mt-1 text-sm text-slate-600">Gevraagde vragen aan onze chatbot</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">8.000</div>
+          <p class="mt-1 text-sm text-slate-600">Hobby‑imkers in NL als community</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">10–15 jaar</div>
+          <p class="mt-1 text-sm text-slate-600">Horizon voor EU‑monitoring van bestuivers</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200 text-center">
+          <div class="text-4xl font-semibold">10 min</div>
+          <p class="mt-1 text-sm text-slate-600">Kleine intervals van meetingen</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voor wie (anker) -->
+  <section id="voor-wie" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-semibold">Voor wie</h2>
+      <p class="mt-3 text-slate-600">Één platform, meerdere rollen - iedereen kijkt naar dezelfde waarheid.</p>
+      <div class="mt-8 grid md:grid-cols-4 gap-6">
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white"><h3 class="font-semibold">Imkers</h3><p class="mt-2 text-sm text-slate-600">Duidelijke signalen & seizoensadvies.</p></div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white"><h3 class="font-semibold">Onderzoek</h3><p class="mt-2 text-sm text-slate-600">Transparante data & methode.</p></div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white"><h3 class="font-semibold">Overheden</h3><p class="mt-2 text-sm text-slate-600">Monitoring & rapportage.</p></div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white"><h3 class="font-semibold">Gemeenschap</h3><p class="mt-2 text-sm text-slate-600">Onderzoeken van de omgeving.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Over ons -->
+  <section id="over" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold">Over ons</h2>
+          <p class="mt-4 text-slate-600">Wij zijn een team van data scientists en (hobby)imkers. We bouwen hardware en software om uiteindelijk betere modellen en inzichten te leveren. Het doel: minder data verzamelen, maar meer leren – door het geleerde te vertalen naar efficiënte monitoring.</p>
+          <ul class="mt-4 list-disc list-inside text-slate-600 space-y-1">
+            <li>Focus op robuuste analysemethoden</li>
+            <li>Transparant in aannames en meetfouten</li>
+            <li>Samenwerkingen met onderwijs, overheid en bedrijven</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-semibold">Publicaties & links</h3>
+          <ul class="mt-3 text-sm text-amber-700 space-y-2">
+            <!-- <li><a class="underline hover:no-underline" href="http://www.smart-isolator.eu/" target="_blank" rel="noreferrer">Projectwebsite (bestaande)</a></li> -->
+            <li><a class="underline hover:no-underline" href="https://smart-isolator.github.io/index_c00003_d001.html" aria-disabled="true">Live monitoring (Imkervereniging Den Haag)</a></li>
+            <li><a class="underline hover:no-underline" href="https://github.com/smart-isolator/data/tree/main/data" aria-disabled="true">Publiekelijke data</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Updates / Blog placeholder -->
+  <section id="updates" class="py-16 md:py-24 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-semibold">Updates</h2>
+      <div class="mt-6 grid md:grid-cols-3 gap-6">
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Lancering pilot Q4</h3>
+          <p class="mt-2 text-sm text-slate-600">We breiden het netwerk uit met nieuwe kasten en testen nieuwe audio‑modellen.</p>
+        </article>
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Open data‑exports</h3>
+          <p class="mt-2 text-sm text-slate-600">Dagelijkse CSV‑exports via GitHub (proof‑of‑concept). Meer info volgt.</p>
+        </article>
+        <article class="p-5 rounded-2xl bg-white border border-slate-200">
+          <h3 class="font-semibold">Samenwerking onderwijs</h3>
+          <p class="mt-2 text-sm text-slate-600">Studententeams werken mee aan analysetaken en visualisaties.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Missie (kort, marketing) -->
+  <section id="missie" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold">Missie</h2>
+          <p class="mt-4 text-slate-600">We brengen mens en natuur dichter bij elkaar met begrijpelijke inzichten uit bijenkasten. Door open te werken en samen te bouwen, versnellen we leren en vergroten we biodiversiteitsimpact.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+          <h3 class="font-semibold">Wat je van ons mag verwachten</h3>
+          <ul class="mt-3 list-disc list-inside text-sm text-slate-700 space-y-1">
+            <li>Transparantie in data en methode</li>
+            <li>Samenwerking met imkers, burgers en onderzoekers</li>
+            <li>Privacy‑bewuste, schaalbare oplossingen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo / Contact -->
+  <section id="demo" class="py-16 md:py-24">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="p-6 md:p-8 rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <h2 class="text-2xl md:text-3xl font-semibold">Vraag een demo aan</h2>
+        <p class="mt-2 text-slate-600">Laat je gegevens achter en we nemen contact op.</p>
+        <form class="mt-6 grid gap-4" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-slate-700" for="name">Naam</label>
+              <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            </div>
+            <div>
+              <label class="text-sm text-slate-700" for="org">Organisatie</label>
+              <input id="org" name="organization" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            </div>
+          </div>
+          <div>
+            <label class="text-sm text-slate-700" for="email">E‑mail</label>
+            <input type="email" id="email" name="email" required class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="text-sm text-slate-700" for="interest">Waar ben je in geïnteresseerd?</label>
+            <select id="interest" name="interest" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+              <option>Imkers</option>
+              <option>Onderzoek & onderwijs</option>
+              <option>Overheden</option>
+              <option>Industrie & terreinbeheer</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm text-slate-700" for="msg">Bericht</label>
+            <textarea id="msg" name="message" rows="4" class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Vertel kort je use‑case…"></textarea>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <label class="flex items-center gap-2 text-sm text-slate-600">
+              <input type="checkbox" name="consent" required class="rounded border-slate-300" /> Ik ga akkoord met de <a href="#" class="underline">privacyverklaring</a>.
+            </label>
+            <button class="inline-flex items-center rounded-xl px-5 py-3 bg-amber-500 text-white font-medium shadow hover:bg-amber-600 transition" type="submit">Verzenden</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t border-slate-200"> 
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        <div>
+          <div class="flex items-center gap-2 font-semibold"><span class="text-2xl">🐝</span> Smart Isolator</div>
+          <p class="mt-2 text-sm text-slate-600">Datagedreven inzicht in bijenkast‑gedrag. Minder meten, meer leren.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Navigatie</h4>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1">
+            <li><a class="hover:underline" href="#oplossingen">Oplossingen</a></li>
+            <li><a class="hover:underline" href="#hoe-werkt-het">Hoe het werkt</a></li>
+            <li><a class="hover:underline" href="#waarom">Waarom wij</a></li>
+            <li><a class="hover:underline" href="#impact">Impact</a></li>
+            <li><a class="hover:underline" href="#voor-wie">Voor wie</a></li>
+            <li><a class="hover:underline" href="#updates">Updates</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Contact</h4>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1">
+            <li>E‑mail: <a class="underline" href="mailto:info@smart-isolator.eu">smart.hive.isolator@gmail.com</a></li>
+            <li>KvK / BTW: </li>
+            <li>Privacy: <a class="underline" href="#">verklaring</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-xs text-slate-500">© <span id="year"></span> Smart Isolator. Alle rechten voorbehouden.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobiele nav toggle
+    const btn = document.getElementById('navBtn');
+    const mobile = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => mobile.classList.toggle('hidden'));
+    // Jaar in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
