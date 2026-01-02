@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://smart-isolator.github.io/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🐝</text></svg>">
+  <link rel="icon" href="images/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,36 +39,95 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { scroll-behavior: smooth; }
+    .honeycomb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 20px 0;
+    }
+    .honeycomb-row {
+      display: flex;
+      justify-content: center;
+      margin-top: -35px;
+    }
+    .honeycomb-row:first-child { margin-top: 0; }
+    .honeycomb-row:nth-child(2) {
+      margin-left: -119px;
+    }
+    .honeycomb-row:nth-child(3) {
+      margin-left: -119px;
+    }
     .hex-tile {
       position: relative;
-      width: 150px;
-      aspect-ratio: 1 / 0.866;
-      clip-path: polygon(25% 3%, 75% 3%, 98% 50%, 75% 97%, 25% 97%, 2% 50%);
-      transition: transform 200ms ease, box-shadow 200ms ease;
-      background: linear-gradient(135deg, rgba(255,183,3,0.18), rgba(16,185,129,0.08));
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      width: 118px;
+      height: 136px;
+      flex-shrink: 0;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(145deg, rgba(255,183,3,0.65), rgba(255,215,0,0.45), rgba(245,158,11,0.5));
+      cursor: pointer;
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0ms, filter 300ms ease;
+      z-index: 1;
     }
-    .hex-tile:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,0,0,0.2); }
-    .hex-tile::after {
+    .hex-tile::before {
       content: '';
       position: absolute;
-      inset: 10%;
-      border-radius: 18px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 55%);
-      opacity: 0;
+      inset: 3px;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(160deg, rgba(30,30,40,0.92), rgba(20,20,30,0.95));
+      z-index: -1;
+    }
+    .hex-tile:hover { transform: scale(1.1); z-index: 10; filter: brightness(1.15); }
+    .hex-tile.expanded {
+      transform: scale(2.8);
+      z-index: 200;
+      filter: brightness(1.2);
+    }
+    .hex-tile.filler {
+      background: linear-gradient(145deg, rgba(255,183,3,0.35), rgba(255,215,0,0.2));
+      cursor: default;
+    }
+    .hex-tile.filler::before {
+      background: linear-gradient(160deg, rgba(30,30,40,0.7), rgba(20,20,30,0.75));
+    }
+    .hex-tile.filler:hover { transform: scale(1.02); filter: none; }
+    .hex-tile .hex-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      padding: 14px 8px;
       transition: opacity 200ms ease;
+    }
+    .hex-tile.expanded .hex-content { opacity: 0; pointer-events: none; }
+    .hex-tile .hex-detail {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px 6px;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 200ms ease 150ms;
     }
-    .hex-tile:hover::after { opacity: 1; }
-    .hex-tile:nth-child(odd) { transform: translateY(10px); }
-    .hex-tile:nth-child(even) { transform: translateY(-10px); }
-    @media (max-width: 1024px) {
-      .hex-tile { width: 120px; }
+    .hex-tile.expanded .hex-detail { opacity: 1; pointer-events: auto; }
+    @media (max-width: 768px) {
+      .hex-tile { width: 98px; height: 113px; }
+      .honeycomb-row { margin-top: -28px; }
+      .honeycomb-row:nth-child(even) { margin-left: -59px; }
+      .hex-tile.expanded { transform: scale(2.4); }
     }
-    @media (max-width: 640px) {
-      .hex-tile { width: 110px; }
-      .hex-tile:nth-child(odd), .hex-tile:nth-child(even) { transform: none; }
+    @media (max-width: 480px) {
+      .hex-tile { width: 78px; height: 90px; }
+      .honeycomb-row { margin-top: -22px; }
+      .honeycomb-row:nth-child(even) { margin-left: -59px; }
+      .hex-tile.expanded { transform: scale(3); }
     }
   </style>
 </head>
@@ -80,7 +139,7 @@
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
           <a href="#home" class="flex items-center gap-2 font-semibold text-white">
-            <span class="text-2xl">🐝</span>
+            <img src="images/logo.png" alt="Bijvangst logo" class="h-10 w-10">
             <span class="font-display">Stichting Bijvangst</span>
           </a>
           <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
@@ -139,48 +198,101 @@
                 </div>
                 <span class="text-xs px-3 py-1 rounded-full bg-white/10 text-white">8 modules</span>
               </div>
-              <div class="flex flex-wrap gap-3 justify-center">
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Basestation" data-body="Hoofdunit die de sensorkastjes koppelt en data doorstuurt." data-price="€50 per stuk">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Hardware</span>
-                  <span class="font-semibold text-white">Basestation</span>
-                  <span class="text-sm text-honey-100">€50</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Sensor station" data-body="Meet audio, temperatuur en licht direct in en rond de kast." data-price="€25 per stuk">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Hardware</span>
-                  <span class="font-semibold text-white">Sensor station</span>
-                  <span class="text-sm text-honey-100">€25</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Power station" data-body="Stabiele voeding met lage footprint, gemaakt voor buitenopstelling." data-price="€25 per stuk">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Hardware</span>
-                  <span class="font-semibold text-white">Power station</span>
-                  <span class="text-sm text-honey-100">€25</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Weightscale" data-body="Meet gewichtstrends zodat nectar- en honingstromen zichtbaar worden." data-price="€50 per stuk">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Hardware</span>
-                  <span class="font-semibold text-white">Weightscale</span>
-                  <span class="text-sm text-honey-100">€50</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Platform & AI" data-body="Dashboard met realtime data, alerts en export. Inclusief kennisdeling tussen imkers, wetenschappers en inwoners." data-price="€25 per jaar">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Software</span>
-                  <span class="font-semibold text-white">Platform & AI</span>
-                  <span class="text-sm text-honey-100">€25/jaar</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="4G station" data-body="Standalone 4G‑uplink voor locaties zonder WiFi." data-price="€25 per stuk">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Connectiviteit</span>
-                  <span class="font-semibold text-white">4G station</span>
-                  <span class="text-sm text-honey-100">€25</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="4G verbinding" data-body="Connectiesubscriptie voor dataverkeer en beheer." data-price="€25 per jaar">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Connectiviteit</span>
-                  <span class="font-semibold text-white">4G verbinding</span>
-                  <span class="text-sm text-honey-100">€25/jaar</span>
-                </button>
-                <button class="hex-tile flex flex-col justify-center items-center text-center px-4 py-3" data-title="Community & onderzoek" data-body="Samenwerkingen met imkers, onderwijs en overheden voor betere modellen en meer biodiversiteitsimpact." data-price="Open samenwerking">
-                  <span class="text-xs uppercase tracking-wide text-slate-200/70">Samen</span>
-                  <span class="font-semibold text-white">Community</span>
-                  <span class="text-sm text-honey-100">Samen bouwen</span>
-                </button>
+              <div class="honeycomb">
+                <div class="honeycomb-row">
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                  <div class="hex-tile" data-title="Smart Hive" data-body="10 minute measurements">
+                    <div class="hex-content">
+                      <span class="text-2xl">📡</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Smart Hive</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">📡</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">10 minute measurements</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile" data-title="AI Analytics" data-body="Constant live analyses">
+                    <div class="hex-content">
+                      <span class="text-2xl">🤖</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">AI Analytics</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🤖</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Constant live analyses</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile" data-title="Beekeeper" data-body="Digital hive management">
+                    <div class="hex-content">
+                      <span class="text-2xl">🧑‍🌾</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Beekeeper</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🧑‍🌾</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Digital hive management</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                </div>
+                <div class="honeycomb-row">
+                  <div class="hex-tile" data-title="Education" data-body="Education at schools">
+                    <div class="hex-content">
+                      <span class="text-2xl">🎓</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Education</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🎓</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Education at schools</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                  <div class="hex-tile" data-title="Open Data" data-body="Download all data">
+                    <div class="hex-content">
+                      <span class="text-2xl">📊</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Open Data</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">📊</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Download all data</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                  <div class="hex-tile" data-title="Government" data-body="Support government decision">
+                    <div class="hex-content">
+                      <span class="text-2xl">🏛️</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Government</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🏛️</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Support government decision</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="honeycomb-row">
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                  <div class="hex-tile" data-title="Academy" data-body="Research cooperations">
+                    <div class="hex-content">
+                      <span class="text-2xl">🔬</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Academy</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🔬</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Research cooperations</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile" data-title="Mentor" data-body="Mentoring in the beekeepers app">
+                    <div class="hex-content">
+                      <span class="text-2xl">🤝</span>
+                      <span class="font-semibold text-white text-sm leading-tight mt-1">Mentor</span>
+                    </div>
+                    <div class="hex-detail">
+                      <span class="text-xl">🤝</span>
+                      <span class="text-[10px] text-white leading-tight px-1 mt-1">Mentoring in the beekeepers app</span>
+                    </div>
+                  </div>
+                  <div class="hex-tile filler"><div class="hex-content"></div></div>
+                </div>
               </div>
+              <p class="text-center text-xs text-honey-300 mt-4 font-semibold">🐝 Klik op een tegel voor meer informatie</p>
             </div>
           </div>
         </div>
@@ -201,35 +313,38 @@
               <p class="text-sm text-honey-100 font-semibold">Instrumenten</p>
               <h3 class="mt-2 text-xl font-semibold">Kast hardware</h3>
               <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>Basestation — <span class="font-semibold text-white">€50</span></li>
-                <li>Sensor station — <span class="font-semibold text-white">€25</span></li>
-                <li>Power station — <span class="font-semibold text-white">€25</span></li>
-                <li>Weightscale — <span class="font-semibold text-white">€50</span></li>
+                <li>Basestation — <span class="line-through text-slate-400">€200</span> <span class="font-semibold text-honey-300">€100</span></li>
+                <li>Sensor station — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
+                <li>Power station — <span class="line-through text-slate-400">€100</span> <span class="font-semibold text-honey-300">€50</span></li>
+                <li>Weightscale <span class="text-slate-400">(optioneel)</span> — <span class="line-through text-slate-400">€200</span> <span class="font-semibold text-honey-300">€100</span></li>
               </ul>
-              <p class="mt-4 text-sm text-slate-200/80">Modulair: kies wat je nodig hebt per kast.</p>
+              <p class="mt-4 text-sm text-honey-300 font-semibold">🎉 50% korting voor eerste 100 apparaten!</p>
+              <p class="text-sm text-slate-200/80">Modulair: kies wat je nodig hebt per kast.</p>
             </div>
 
             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
               <p class="text-sm text-emerald-200 font-semibold">Platform</p>
               <h3 class="mt-2 text-xl font-semibold">Data & AI</h3>
               <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>Platform toegang — <span class="font-semibold text-white">€25 per jaar</span></li>
+                <li>Platform toegang — <span class="font-semibold text-honey-300">€25 per jaar</span></li>
+                <li>Extra systeem — <span class="font-semibold text-honey-300">€12,50 per jaar</span> <span class="text-slate-400">(50%)</span></li>
                 <li>Realtime dashboards & alerts</li>
                 <li>Data‑export, open waar het kan</li>
-                <li>Begeleiding bij interpretatie</li>
               </ul>
-              <p class="mt-4 text-sm text-slate-200/80">Inclusief community voor kennisdeling.</p>
+              <p class="mt-4 text-sm text-emerald-300 font-semibold">💡 Volume korting bij meerdere systemen</p>
+              <p class="text-sm text-slate-200/80">Inclusief community voor kennisdeling.</p>
             </div>
 
             <div class="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg">
               <p class="text-sm text-sky-200 font-semibold">Optioneel 4G</p>
               <h3 class="mt-2 text-xl font-semibold">Connectiviteit</h3>
               <ul class="mt-4 space-y-2 text-sm text-slate-200/80">
-                <li>4G station — <span class="font-semibold text-white">€25</span></li>
-                <li>4G verbinding — <span class="font-semibold text-white">€25 per jaar</span></li>
-                <li>Beheerde verbinding voor afgelegen bijenstanden</li>
+                <li>4G station — <span class="line-through text-slate-400">€50</span> <span class="font-semibold text-honey-300">€25</span> <span class="text-slate-400">(eerste 100)</span></li>
+                <li>4G verbinding — <span class="font-semibold text-honey-300">€25 per jaar</span></li>
+                <li>Extra verbinding — <span class="font-semibold text-honey-300">€12,50 per jaar</span> <span class="text-slate-400">(50%)</span></li>
               </ul>
-              <p class="mt-4 text-sm text-slate-200/80">Klaarzetten, aansluiten, data loopt.</p>
+              <p class="mt-4 text-sm text-emerald-300 font-semibold">💡 Volume korting bij meerdere verbindingen</p>
+              <p class="text-sm text-slate-200/80">Klaarzetten, aansluiten, data loopt.</p>
             </div>
           </div>
         </div>
@@ -312,7 +427,7 @@
             <h2 class="font-display text-3xl">Plan een gesprek of demo</h2>
             <p class="text-slate-200/80">Vertel kort je situatie, dan koppelen we hardware en abonnement aan jouw locatie. Binnen 48 uur reageren we.</p>
             <div class="space-y-2 text-sm text-slate-200/80">
-              <p><span class="font-semibold text-white">E-mail:</span> smart.hive.isolator@gmail.com</p>
+              <p><span class="font-semibold text-white">E-mail:</span> info@bijvangst.eu</p>
               <p><span class="font-semibold text-white">Locatie:</span> Den Haag</p>
             </div>
           </div>
@@ -385,7 +500,7 @@
           <div>
             <h4 class="font-semibold text-white">Contact</h4>
             <ul class="mt-2 space-y-1">
-              <li>E-mail: <a class="underline" href="mailto:smart.hive.isolator@gmail.com">smart.hive.isolator@gmail.com</a></li>
+              <li>E-mail: <a class="underline" href="mailto:info@bijvangst.eu">info@bijvangst.eu</a></li>
               <li>Gemeente: Den Haag</li>
               <li>Privacy: op aanvraag</li>
             </ul>
@@ -396,19 +511,7 @@
     </footer>
   </div>
 
-  <div id="hexModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm px-4">
-    <div class="max-w-lg w-full bg-slate-950 border border-white/10 rounded-2xl shadow-2xl p-6 space-y-4">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-slate-200/70">Hex info</p>
-          <h3 id="modalTitle" class="text-2xl font-semibold text-white">Titel</h3>
-        </div>
-        <button id="modalClose" class="p-2 text-slate-200 hover:text-white" aria-label="Sluit popup">✕</button>
-      </div>
-      <p id="modalBody" class="text-slate-200/90">Inhoud</p>
-      <div class="text-sm text-honey-100 font-semibold" id="modalPrice"></div>
-    </div>
-  </div>
+
 
   <script>
     const btn = document.getElementById('navBtn');
@@ -417,34 +520,34 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const tiles = document.querySelectorAll('.hex-tile');
-    const modal = document.getElementById('hexModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-    const modalPrice = document.getElementById('modalPrice');
-    const modalClose = document.getElementById('modalClose');
+    const tiles = document.querySelectorAll('.hex-tile:not(.filler)');
+    const allTiles = document.querySelectorAll('.hex-tile');
 
     tiles.forEach(tile => {
-      tile.addEventListener('click', () => {
-        modalTitle.textContent = tile.dataset.title || '';
-        modalBody.textContent = tile.dataset.body || '';
-        modalPrice.textContent = tile.dataset.price || '';
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+      tile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wasExpanded = tile.classList.contains('expanded');
+        // Close all other expanded tiles
+        allTiles.forEach(t => t.classList.remove('expanded'));
+        // Toggle current tile
+        if (!wasExpanded) {
+          tile.classList.add('expanded');
+        }
       });
     });
 
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    };
-
-    modalClose?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.hex-tile')) {
+        allTiles.forEach(t => t.classList.remove('expanded'));
+      }
     });
+
+    // Escape to close
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') {
+        allTiles.forEach(t => t.classList.remove('expanded'));
+      }
     });
   </script>
 </body>
